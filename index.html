@@ -3,23 +3,119 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Carousel example · Bootstrap v5.3</title>
+    <title>Health Awareness — Full Page</title>
+
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        user-select: none;
+      :root {
+        --nav-start: #0b7dda;
+        --nav-end: #00c6ff;
+        --light-bg: #f6f9ff;
       }
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        color: #222;
+        background: #fff;
+      }
+
+      /* NAVBAR */
+      .navbar-custom {
+        background: linear-gradient(
+          90deg,
+          var(--nav-start) 0%,
+          var(--nav-end) 100%
+        );
+      }
+
+      /* Make the carousel truly full-bleed — works inside container layout */
+      .full-bleed {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+      }
+
+      /* Uniform carousel image sizing: cover the container so no left/right gaps */
+      .carousel-item img {
+        display: block;
+        width: 100%;
+        height: 650px; /* desktop height — change if you want taller/shorter */
+        object-fit: cover; /* fills the width & height, cropping if necessary (no letterbox) */
+      }
+
+      /* Smaller height on mobile */
+      @media (max-width: 767.98px) {
+        .carousel-item img {
+          height: 420px;
         }
       }
+
+      /* Caption: compact, corner aligned and translucent to avoid covering key slide content */
+      .carousel-caption {
+        position: absolute;
+        right: 4%;
+        bottom: 3.5%;
+        left: auto;
+        text-align: left;
+        max-width: 420px;
+        background: rgba(0, 0, 0, 0.42);
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        color: #fff;
+      }
+
+      /* Slightly smaller caption on very small screens */
+      @media (max-width: 480px) {
+        .carousel-caption {
+          right: 2%;
+          bottom: 1.25rem;
+          max-width: 86%;
+          padding: 0.6rem 0.8rem;
+        }
+      }
+
+      /* Indicators overlay near bottom center but above caption */
+      .carousel-indicators {
+        bottom: 1.1rem;
+      }
+
+      /* Marketing round icons */
+      .feature-card {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .icon-circle {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 1rem;
+        border: 4px solid #e9eef8;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Featurette helpers (kept from original example) */
       .featurette-divider {
         margin: 5rem 0;
       }
@@ -29,52 +125,42 @@
         letter-spacing: -0.05rem;
       }
 
-      /* Round icon above each heading */
-      .feature-card {
-        text-align: center;
-      }
-      .icon-circle {
-        width: 140px; 
-        height: 140px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: 0 auto 1rem; /* centers & spaces above heading */
-        border: 4px solid #e9ecef; /* subtle ring */
-        background: #f8f9fa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .icon-circle img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; 
-        display: block;
+      /* Footer */
+      footer {
+        background: var(--light-bg);
+        padding: 2.5rem 0;
       }
     </style>
   </head>
+
   <body>
+    <!-- NAVBAR -->
     <header>
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Carousel</a>
+      <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
+        <div class="container">
+          <a class="navbar-brand fw-bold" href="#">Swasthya Bot</a>
           <button
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
+            data-bs-target="#navCollapse"
+            aria-controls="navCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+          <div class="collapse navbar-collapse" id="navCollapse">
+            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
               <li class="nav-item">
                 <a class="nav-link active" href="#">Home</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
               <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
+                <a class="nav-link" href="#">Services</a>
               </li>
+              <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -82,186 +168,212 @@
     </header>
 
     <main>
-      <!-- Carousel -->
-      <div
-        id="myCarousel"
-        class="carousel slide"
-        data-bs-ride="carousel"
-        data-bs-interval="3000"
-        data-bs-pause="false"
-        data-bs-wrap="true"
-      >
-        <!-- 4 indicators to match 4 slides -->
-        <div class="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#myCarousel"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#myCarousel"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#myCarousel"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#myCarousel"
-            data-bs-slide-to="3"
-            aria-label="Slide 4"
-          ></button>
-        </div>
-
-        <div class="carousel-inner">
-          <!-- Slide 1 -->
-          <div class="carousel-item active">
-            <img src="home.png" class="d-block w-100" alt="First slide" />
-            <div class="container">
-              <div class="carousel-caption text-start">
-                <h1>Example headline.</h1>
-                <p>
-                  Some representative placeholder content for the first slide of
-                  the carousel.
-                </p>
-                <p>
-                  <a class="btn btn-lg btn-primary" href="#">Sign up today</a>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 2 -->
-          <div class="carousel-item">
-            <img src="second.png" class="d-block w-100" alt="Second slide" />
-            <div class="container">
-              <div class="carousel-caption">
-                <h1>Another example headline.</h1>
-                <p>
-                  Some representative placeholder content for the second slide
-                  of the carousel.
-                </p>
-                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 3 -->
-          <div class="carousel-item">
-            <img src="third.jpg" class="d-block w-100" alt="Third slide" />
-            <div class="container">
-              <div class="carousel-caption text-end">
-                <h1>One more for good measure.</h1>
-                <p>
-                  Some representative placeholder content for the third slide of
-                  this carousel.
-                </p>
-                <p>
-                  <a class="btn btn-lg btn-primary" href="#">Browse gallery</a>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 4 (fixed as a separate sibling, not nested) -->
-          <div class="carousel-item">
-            <img src="fourth.jpg" class="d-block w-100" alt="Fourth slide" />
-            <div class="container">
-              <div class="carousel-caption text-end">
-                <h1>Fourth slide.</h1>
-                <p>Additional content for the fourth slide of this carousel.</p>
-                <p>
-                  <a class="btn btn-lg btn-primary" href="#">More details</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Controls -->
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#myCarousel"
-          data-bs-slide="prev"
+      <!-- FULL-WIDTH CAROUSEL (full-bleed) -->
+      <div class="full-bleed">
+        <div
+          id="heroCarousel"
+          class="carousel slide"
+          data-bs-ride="carousel"
+          data-bs-interval="3000"
+          data-bs-pause="hover"
+          data-bs-wrap="true"
         >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#myCarousel"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+          <!-- Indicators -->
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#heroCarousel"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#heroCarousel"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#heroCarousel"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#heroCarousel"
+              data-bs-slide-to="3"
+              aria-label="Slide 4"
+            ></button>
+          </div>
+
+          <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+              <!-- Replace the image names with your local files (ensure exact filename / case) -->
+              <img
+                src="home.png"
+                class="d-block w-100"
+                alt="Disease Information"
+              />
+              <div class="container">
+                <div class="carousel-caption">
+                  <h3 class="h2 mb-1">Disease Information</h3>
+                  <p class="mb-2">
+                    Clear, local-language explanations of symptoms, prevention
+                    and when to seek care.
+                  </p>
+                  <p>
+                    <a class="btn btn-sm btn-primary" href="#">Learn more</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+              <img
+                src="second.png"
+                class="d-block w-100"
+                alt="Vaccination Schedules"
+              />
+              <div class="container">
+                <div class="carousel-caption">
+                  <h3 class="h2 mb-1">Vaccination Schedules</h3>
+                  <p class="mb-2">
+                    Timely reminders and guidance for all age groups —
+                    government approved.
+                  </p>
+                  <p>
+                    <a class="btn btn-sm btn-primary" href="#"
+                      >Check schedule</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+              <img
+                src="third.jpg"
+                class="d-block w-100"
+                alt="Outbreak Alerts"
+              />
+              <div class="container">
+                <div class="carousel-caption">
+                  <h3 class="h2 mb-1">Outbreak Alerts</h3>
+                  <p class="mb-2">
+                    Receive localized, real-time alerts and step-by-step safety
+                    advice.
+                  </p>
+                  <p>
+                    <a class="btn btn-sm btn-primary" href="#">View alerts</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="carousel-item">
+              <img
+                src="fourth.jpg"
+                class="d-block w-100"
+                alt="Community Health"
+              />
+              <div class="container">
+                <div class="carousel-caption">
+                  <h3 class="h2 mb-1">Community Health</h3>
+                  <p class="mb-2">
+                    Find nearby doctors, clinics and public health resources
+                    quickly.
+                  </p>
+                  <p>
+                    <a class="btn btn-sm btn-primary" href="#">Find doctors</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
       </div>
-      <!-- End Carousel -->
+      <!-- End full-bleed carousel -->
 
-      <!-- Three columns with round images above headings -->
+      <!-- MARKETING SECTION / THREE FEATURE CARDS -->
       <div class="container marketing mt-5">
         <div class="row">
-          <!-- Card 1 -->
           <div class="col-lg-4 feature-card">
-            <div class="icon-circle">
-              <!-- Replace src with your image -->
-              <img src="vaccination.png" alt="Vaccination icon" />
+            <div class="icon-circle" aria-hidden="true">
+              <img src="vaccination.png" alt="Vaccination" />
             </div>
             <h2>Vaccination Schedules</h2>
-            <p>Track timely vaccines and reminders for all age groups.</p>
-            <p><a class="btn btn-secondary" href="Vaccination.html">View details »</a></p>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="col-lg-4 feature-card">
-            <div class="icon-circle">
-              <!-- Replace src with your image -->
-              <img src="disease-info.png" alt="Disease information icon" />
-            </div>
-            <h2>Disease Information</h2>
-            <p>Understand symptoms, when to seek care, and prevention tips.</p>
+            <p>Track recommended vaccines and get reminders for your family.</p>
             <p><a class="btn btn-secondary" href="#">View details »</a></p>
           </div>
 
-          <!-- Card 3 -->
           <div class="col-lg-4 feature-card">
-            <div class="icon-circle">
-              <!-- Replace src with your image -->
-              <img src="outbreak-alerts.png" alt="Outbreak alerts icon" />
+            <div class="icon-circle" aria-hidden="true">
+              <img src="disease.png" alt="Disease Info" />
+            </div>
+            <h2>Disease Information</h2>
+            <p>
+              Concise, trusted descriptions of common conditions and next steps.
+            </p>
+            <p><a class="btn btn-secondary" href="#">View details »</a></p>
+          </div>
+
+          <div class="col-lg-4 feature-card">
+            <div class="icon-circle" aria-hidden="true">
+              <img src="aware.png" alt="Outbreak Alerts" />
             </div>
             <h2>Outbreak Alerts</h2>
-            <p>Get localized, real-time alerts and safety guidance.</p>
-            <p><a href="outbreaks.html" target="_blank" class="btn btn-primary">Read More about Outbreaks</a></p>
+            <p>
+              Real-time notifications and recommended precautions for your area.
+            </p>
+            <p><a class="btn btn-secondary" href="#">View details »</a></p>
           </div>
         </div>
 
         <hr class="featurette-divider" />
 
+        <!-- FEATURETTES -->
         <div class="row featurette">
           <div class="col-md-7">
             <h2 class="featurette-heading">
-              First featurette heading.
-              <span class="text-muted">It’ll blow your mind.</span>
+              Accessible local information.
+              <span class="text-muted">Short, actionable guidance.</span>
             </h2>
             <p class="lead">
-              Some great placeholder content for the first featurette here.
+              Content is simplified, translated, and tailored for rural and
+              semi-urban communities.
             </p>
           </div>
           <div class="col-md-5">
             <img
               src="https://via.placeholder.com/500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              alt=""
+              class="img-fluid mx-auto"
+              alt="Feature 1"
             />
           </div>
         </div>
@@ -271,16 +383,19 @@
         <div class="row featurette">
           <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading">
-              Oh yeah, it’s that good.
-              <span class="text-muted">See for yourself.</span>
+              Real-time alerts.
+              <span class="text-muted">When it matters most.</span>
             </h2>
-            <p class="lead">Another featurette? Of course.</p>
+            <p class="lead">
+              Integrated feeds and verified government sources power accurate
+              outbreak warnings.
+            </p>
           </div>
           <div class="col-md-5 order-md-1">
             <img
               src="https://via.placeholder.com/500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              alt=""
+              class="img-fluid mx-auto"
+              alt="Feature 2"
             />
           </div>
         </div>
@@ -290,36 +405,37 @@
         <div class="row featurette">
           <div class="col-md-7">
             <h2 class="featurette-heading">
-              And lastly, this one. <span class="text-muted">Checkmate.</span>
+              Connect with care.
+              <span class="text-muted">Find nearby help.</span>
             </h2>
             <p class="lead">
-              And yes, this is the last block of representative placeholder
-              content.
+              After AI triage and prescription review, users can connect with
+              recommended local doctors.
             </p>
           </div>
           <div class="col-md-5">
             <img
               src="https://via.placeholder.com/500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              alt=""
+              class="img-fluid mx-auto"
+              alt="Feature 3"
             />
           </div>
         </div>
       </div>
-      <!-- /.container -->
+      <!-- /.container (marketing/featurettes) -->
     </main>
 
-    <footer class="container py-5">
-      <p class="text-center">
-        &copy; 2017–2025 Company, Inc. · <a href="#">Privacy</a> ·
-        <a href="#">Terms</a>
-      </p>
+    <!-- FOOTER -->
+    <footer>
+      <div class="container text-center">
+        <p class="mb-0">
+          © 2025 Health Awareness · <a href="#">Privacy</a> ·
+          <a href="#">Terms</a>
+        </p>
+      </div>
     </footer>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
-
-
-
-
