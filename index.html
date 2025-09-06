@@ -3,11 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Health Awareness — Full Page</title>
+    <title>Health Awareness — Upgraded</title>
 
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
 
@@ -16,6 +20,7 @@
         --nav-start: #0b7dda;
         --nav-end: #00c6ff;
         --light-bg: #f6f9ff;
+        --cta-bg: linear-gradient(90deg, #0b7dda, #00c6ff);
       }
 
       html,
@@ -40,19 +45,59 @@
         );
       }
 
-      /* Make the carousel truly full-bleed — works inside container layout */
+      /* Carousel full-bleed */
       .full-bleed {
         width: 100vw;
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
       }
 
-      /* Uniform carousel image sizing: cover the container so no left/right gaps */
+      /* Uniform carousel image sizing */
       .carousel-item img {
-        display: block;
         width: 100%;
-        height: 650px; /* desktop height — change if you want taller/shorter */
-        object-fit: cover; /* fills the width & height, cropping if necessary (no letterbox) */
+        height: 650px;
+        object-fit: cover;
+      }
+
+      /* Overlay */
+      .carousel-item::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      .carousel-caption {
+        position: absolute;
+        right: 5%;
+        bottom: 12%;
+        left: 5%;
+        z-index: 10;
+        text-align: left;
+        animation: fadeInUp 1.2s ease;
+      }
+
+      .carousel-caption h3 {
+        font-size: 2.2rem;
+        font-weight: bold;
+      }
+
+      .carousel-caption p {
+        font-size: 1.1rem;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
 
       /* Smaller height on mobile */
@@ -60,75 +105,109 @@
         .carousel-item img {
           height: 420px;
         }
-      }
-
-      /* Caption: compact, corner aligned and translucent to avoid covering key slide content */
-      .carousel-caption {
-        position: absolute;
-        right: 4%;
-        bottom: 3.5%;
-        left: auto;
-        text-align: left;
-        max-width: 420px;
-        background: rgba(0, 0, 0, 0.42);
-        padding: 0.8rem 1rem;
-        border-radius: 8px;
-        color: #fff;
-      }
-
-      /* Slightly smaller caption on very small screens */
-      @media (max-width: 480px) {
-        .carousel-caption {
-          right: 2%;
-          bottom: 1.25rem;
-          max-width: 86%;
-          padding: 0.6rem 0.8rem;
+        .carousel-caption h3 {
+          font-size: 1.6rem;
         }
       }
 
-      /* Indicators overlay near bottom center but above caption */
-      .carousel-indicators {
-        bottom: 1.1rem;
-      }
-
-      /* Marketing round icons */
+      /* Marketing cards */
       .feature-card {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+      }
+      .feature-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
       }
       .icon-circle {
-        width: 140px;
-        height: 140px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
-        overflow: hidden;
         margin: 0 auto 1rem;
-        border: 4px solid #e9eef8;
-        background: #fff;
+        background: var(--light-bg);
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      .icon-circle img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+        font-size: 2.8rem;
+        color: #0b7dda;
       }
 
-      /* Featurette helpers (kept from original example) */
+      .btn-gradient {
+        background: var(--cta-bg);
+        color: #fff;
+        border: none;
+      }
+      .btn-gradient:hover {
+        opacity: 0.9;
+      }
+
+      /* Featurettes */
       .featurette-divider {
         margin: 5rem 0;
       }
       .featurette-heading {
         font-weight: 300;
-        line-height: 1;
-        letter-spacing: -0.05rem;
+        line-height: 1.2;
+      }
+      .alt-bg {
+        background: var(--light-bg);
+        padding: 3rem 0;
+      }
+
+      /* Testimonials */
+      .testimonial-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+      }
+      .testimonial-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        object-fit: cover;
+      }
+
+      /* CTA banner */
+      .cta-banner {
+        background: var(--cta-bg);
+        color: #fff;
+        text-align: center;
+        padding: 3rem 1rem;
+      }
+      .cta-banner h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
       }
 
       /* Footer */
       footer {
-        background: var(--light-bg);
-        padding: 2.5rem 0;
+        background: #0b233f;
+        color: #ccc;
+        padding: 2rem 0;
+      }
+      footer a {
+        color: #ccc;
+        text-decoration: none;
+      }
+      footer a:hover {
+        color: #fff;
+      }
+      .social-icons i {
+        font-size: 1.5rem;
+        margin: 0 0.5rem;
+        color: #00c6ff;
+        transition: 0.3s;
+      }
+      .social-icons i:hover {
+        color: #fff;
       }
     </style>
   </head>
@@ -168,13 +247,13 @@
     </header>
 
     <main>
-      <!-- FULL-WIDTH CAROUSEL (full-bleed) -->
+      <!-- FULL-WIDTH CAROUSEL -->
       <div class="full-bleed">
         <div
           id="heroCarousel"
           class="carousel slide"
           data-bs-ride="carousel"
-          data-bs-interval="3000"
+          data-bs-interval="3500"
           data-bs-pause="hover"
           data-bs-wrap="true"
         >
@@ -185,127 +264,66 @@
               data-bs-target="#heroCarousel"
               data-bs-slide-to="0"
               class="active"
-              aria-current="true"
-              aria-label="Slide 1"
             ></button>
             <button
               type="button"
               data-bs-target="#heroCarousel"
               data-bs-slide-to="1"
-              aria-label="Slide 2"
             ></button>
             <button
               type="button"
               data-bs-target="#heroCarousel"
               data-bs-slide-to="2"
-              aria-label="Slide 3"
             ></button>
             <button
               type="button"
               data-bs-target="#heroCarousel"
               data-bs-slide-to="3"
-              aria-label="Slide 4"
             ></button>
           </div>
 
           <div class="carousel-inner">
-            <!-- Slide 1 -->
             <div class="carousel-item active">
-              <!-- Replace the image names with your local files (ensure exact filename / case) -->
-              <img
-                src="home.png"
-                class="d-block w-100"
-                alt="Disease Information"
-              />
-              <div class="container">
-                <div class="carousel-caption">
-                  <h3 class="h2 mb-1">Disease Information</h3>
-                  <p class="mb-2">
-                    Clear, local-language explanations of symptoms, prevention
-                    and when to seek care.
-                  </p>
-                  <p>
-                    <a class="btn btn-sm btn-primary" href="#">Learn more</a>
-                  </p>
-                </div>
+              <img src="home.png" alt="Disease Info" />
+              <div class="carousel-caption">
+                <h3>Disease Information</h3>
+                <p>Understand symptoms, prevention, and when to seek care.</p>
+                <a class="btn btn-lg btn-gradient" href="#">Get Started</a>
               </div>
             </div>
-
-            <!-- Slide 2 -->
             <div class="carousel-item">
-              <img
-                src="second.png"
-                class="d-block w-100"
-                alt="Vaccination Schedules"
-              />
-              <div class="container">
-                <div class="carousel-caption">
-                  <h3 class="h2 mb-1">Vaccination Schedules</h3>
-                  <p class="mb-2">
-                    Timely reminders and guidance for all age groups —
-                    government approved.
-                  </p>
-                  <p>
-                    <a class="btn btn-sm btn-primary" href="#"
-                      >Check schedule</a
-                    >
-                  </p>
-                </div>
+              <img src="second.png" alt="Vaccination" />
+              <div class="carousel-caption">
+                <h3>Vaccination Schedules</h3>
+                <p>Stay updated with reminders approved by health experts.</p>
+                <a class="btn btn-lg btn-gradient" href="#">Check Schedule</a>
               </div>
             </div>
-
-            <!-- Slide 3 -->
             <div class="carousel-item">
-              <img
-                src="third.jpg"
-                class="d-block w-100"
-                alt="Outbreak Alerts"
-              />
-              <div class="container">
-                <div class="carousel-caption">
-                  <h3 class="h2 mb-1">Outbreak Alerts</h3>
-                  <p class="mb-2">
-                    Receive localized, real-time alerts and step-by-step safety
-                    advice.
-                  </p>
-                  <p>
-                    <a class="btn btn-sm btn-primary" href="#">View alerts</a>
-                  </p>
-                </div>
+              <img src="third.jpg" alt="Outbreak Alerts" />
+              <div class="carousel-caption">
+                <h3>Outbreak Alerts</h3>
+                <p>Get real-time alerts and safety guidance for your area.</p>
+                <a class="btn btn-lg btn-gradient" href="#">View Alerts</a>
               </div>
             </div>
-
-            <!-- Slide 4 -->
             <div class="carousel-item">
-              <img
-                src="fourth.jpg"
-                class="d-block w-100"
-                alt="Community Health"
-              />
-              <div class="container">
-                <div class="carousel-caption">
-                  <h3 class="h2 mb-1">Community Health</h3>
-                  <p class="mb-2">
-                    Find nearby doctors, clinics and public health resources
-                    quickly.
-                  </p>
-                  <p>
-                    <a class="btn btn-sm btn-primary" href="#">Find doctors</a>
-                  </p>
-                </div>
+              <img src="fourth.jpg" alt="Community Health" />
+              <div class="carousel-caption">
+                <h3>Community Health</h3>
+                <p>Find nearby doctors, clinics, and public health centers.</p>
+                <a class="btn btn-lg btn-gradient" href="#">Find Doctors</a>
               </div>
             </div>
           </div>
 
-          <!-- Controls -->
           <button
             class="carousel-control-prev"
             type="button"
             data-bs-target="#heroCarousel"
             data-bs-slide="prev"
           >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span class="carousel-control-prev-icon"></span>
           </button>
           <button
             class="carousel-control-next"
@@ -313,73 +331,60 @@
             data-bs-target="#heroCarousel"
             data-bs-slide="next"
           >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span class="carousel-control-next-icon"></span>
           </button>
         </div>
       </div>
-      <!-- End full-bleed carousel -->
 
-      <!-- MARKETING SECTION / THREE FEATURE CARDS -->
+      <!-- MARKETING CARDS -->
       <div class="container marketing mt-5">
         <div class="row">
           <div class="col-lg-4 feature-card">
-            <div class="icon-circle" aria-hidden="true">
-              <img src="vaccination.png" alt="Vaccination" />
-            </div>
-            <h2>Vaccination Schedules</h2>
-            <p>Track recommended vaccines and get reminders for your family.</p>
-            <p><a class="btn btn-secondary" href="#">View details »</a></p>
+            <div class="icon-circle"><i class="fa-solid fa-syringe"></i></div>
+            <h2>Vaccination</h2>
+            <p>Track vaccines and get timely reminders.</p>
+            <p><a class="btn btn-gradient" href="#">View details »</a></p>
           </div>
-
           <div class="col-lg-4 feature-card">
-            <div class="icon-circle" aria-hidden="true">
-              <img src="disease.png" alt="Disease Info" />
-            </div>
-            <h2>Disease Information</h2>
-            <p>
-              Concise, trusted descriptions of common conditions and next steps.
-            </p>
-            <p><a class="btn btn-secondary" href="#">View details »</a></p>
+            <div class="icon-circle"><i class="fa-solid fa-virus"></i></div>
+            <h2>Disease Info</h2>
+            <p>Clear explanations of common diseases and precautions.</p>
+            <p><a class="btn btn-gradient" href="#">View details »</a></p>
           </div>
-
           <div class="col-lg-4 feature-card">
-            <div class="icon-circle" aria-hidden="true">
-              <img src="aware.png" alt="Outbreak Alerts" />
-            </div>
+            <div class="icon-circle"><i class="fa-solid fa-bell"></i></div>
             <h2>Outbreak Alerts</h2>
-            <p>
-              Real-time notifications and recommended precautions for your area.
-            </p>
-            <p><a class="btn btn-secondary" href="#">View details »</a></p>
+            <p>Real-time notifications and guidance for your safety.</p>
+            <p><a class="btn btn-gradient" href="#">View details »</a></p>
           </div>
         </div>
+      </div>
 
-        <hr class="featurette-divider" />
-
-        <!-- FEATURETTES -->
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">
-              Accessible local information.
-              <span class="text-muted">Short, actionable guidance.</span>
-            </h2>
-            <p class="lead">
-              Content is simplified, translated, and tailored for rural and
-              semi-urban communities.
-            </p>
-          </div>
-          <div class="col-md-5">
-            <img
-              src="https://via.placeholder.com/500"
-              class="img-fluid mx-auto"
-              alt="Feature 1"
-            />
+      <!-- FEATURETTES -->
+      <div class="alt-bg">
+        <div class="container">
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">
+                Accessible local information.
+                <span class="text-muted">Short, actionable guidance.</span>
+              </h2>
+              <p class="lead">
+                Simplified and translated for rural and semi-urban communities.
+              </p>
+            </div>
+            <div class="col-md-5">
+              <img
+                src="fir fea.png"
+                class="img-fluid mx-auto"
+                alt="Feature 1"
+              />
+            </div>
           </div>
         </div>
+      </div>
 
-        <hr class="featurette-divider" />
-
+      <div class="container my-5">
         <div class="row featurette">
           <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading">
@@ -387,50 +392,104 @@
               <span class="text-muted">When it matters most.</span>
             </h2>
             <p class="lead">
-              Integrated feeds and verified government sources power accurate
-              outbreak warnings.
+              Verified government sources ensure reliable outbreak warnings.
             </p>
           </div>
           <div class="col-md-5 order-md-1">
-            <img
-              src="https://via.placeholder.com/500"
-              class="img-fluid mx-auto"
-              alt="Feature 2"
-            />
-          </div>
-        </div>
-
-        <hr class="featurette-divider" />
-
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">
-              Connect with care.
-              <span class="text-muted">Find nearby help.</span>
-            </h2>
-            <p class="lead">
-              After AI triage and prescription review, users can connect with
-              recommended local doctors.
-            </p>
-          </div>
-          <div class="col-md-5">
-            <img
-              src="https://via.placeholder.com/500"
-              class="img-fluid mx-auto"
-              alt="Feature 3"
-            />
+            <img src="sec fea.png" class="img-fluid mx-auto" alt="Feature 2" />
           </div>
         </div>
       </div>
-      <!-- /.container (marketing/featurettes) -->
+
+      <div class="alt-bg">
+        <div class="container">
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">
+                Connect with care.
+                <span class="text-muted">Find nearby help.</span>
+              </h2>
+              <p class="lead">
+                AI triage connects you with local doctors quickly.
+              </p>
+            </div>
+            <div class="col-md-5">
+              <img
+                src="thi fea.png"
+                class="img-fluid mx-auto"
+                alt="Feature 3"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TESTIMONIALS -->
+      <div class="container my-5">
+        <h2 class="text-center mb-4">What People Say</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="testimonial-card">
+              <img
+                src="https://via.placeholder.com/80"
+                class="testimonial-img"
+                alt="User"
+              />
+              <p>
+                “Thanks to Swasthya Bot, I never missed my child’s vaccination
+                schedule.”
+              </p>
+              <strong>– Priya, Delhi</strong>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="testimonial-card">
+              <img
+                src="https://via.placeholder.com/80"
+                class="testimonial-img"
+                alt="User"
+              />
+              <p>
+                “Outbreak alerts helped our community take precautions on time.”
+              </p>
+              <strong>– Rajesh, Punjab</strong>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="testimonial-card">
+              <img
+                src="https://via.placeholder.com/80"
+                class="testimonial-img"
+                alt="User"
+              />
+              <p>
+                “Easy to use and very helpful for rural families like ours.”
+              </p>
+              <strong>– Anita, Bihar</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA BANNER -->
+      <div class="cta-banner">
+        <h2>Stay safe. Get real-time outbreak alerts now!</h2>
+        <a href="#" class="btn btn-lg btn-light fw-bold">Subscribe Free</a>
+      </div>
     </main>
 
     <!-- FOOTER -->
     <footer>
       <div class="container text-center">
-        <p class="mb-0">
-          © 2025 Health Awareness · <a href="#">Privacy</a> ·
-          <a href="#">Terms</a>
+        <p>© 2025 Swasthya Bot. All rights reserved.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p class="mt-2">
+          <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Help</a>
         </p>
       </div>
     </footer>
