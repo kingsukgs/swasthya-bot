@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Outbreaks in India - Swasthya Bot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0xXh/h3sY+cQxPz/gC+nC2y2k6yD7t6P8P9/gC/2o2k5y0y0Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa; /* Light grey background */
+            color: #333; /* Darker text for readability */
+        }
+        .header-section {
+            background-color: #e0f2f7; /* Light blue, similar to image background */
+            color: #2c3e50; /* Dark blue for headings */
+            padding: 4rem 0 3rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #dcdcdc; /* Subtle separator */
+        }
+        .header-section .display-3 {
+            font-weight: 700; /* Bolder heading */
+        }
+        .header-section .lead {
+            color: #555; /* Slightly darker lead text */
+        }
+
+        .season-tabs .nav-link {
+            color: #3498db; /* Primary blue for inactive tabs */
+            font-weight: bold;
+            border: none; /* Remove default tab borders */
+            border-bottom: 3px solid transparent; /* Bottom border for active state */
+            padding-bottom: 0.75rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .season-tabs .nav-link:hover {
+            color: #2980b9; /* Darker blue on hover */
+            border-color: #aed6f1; /* Lighter blue hint on hover */
+        }
+        .season-tabs .nav-link.active {
+            background-color: transparent; /* No background fill */
+            color: #3498db; /* Keep primary blue for active text */
+            border-color: #3498db; /* Strong blue border for active tab */
+            border-bottom: 3px solid #3498db;
+        }
+
+        .tab-pane h2 {
+            color: #4a6572; /* Muted dark blue for section titles */
+            font-weight: 600;
+        }
+
+        .disease-card {
+            border: 1px solid #e0e0e0; /* Lighter border */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Softer shadow */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background-color: white;
+            margin-bottom: 1.5rem;
+            overflow: hidden; /* Ensures content stays within rounded borders */
+        }
+        .disease-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12); /* Slightly more pronounced shadow on hover */
+        }
+        .disease-title {
+            color: #2c3e50; /* Dark blue for disease titles */
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        .disease-title .icon-small {
+            font-size: 1.4rem; /* Slightly larger icon */
+            margin-right: 10px;
+            color: #3498db; /* Blue for icons */
+        }
+        .text-muted.small {
+            color: #7f8c8d !important; /* Muted grey for small descriptive text */
+        }
+        .solution-badge {
+            font-size: 0.8em; /* Slightly smaller for compactness */
+            padding: 0.35em 0.6em;
+            border-radius: 5px; /* Slightly more rounded */
+            background-color: #d6eaf8; /* Light blue background for badge */
+            color: #21618c; /* Darker blue text for badge */
+            font-weight: 600;
+            border: 1px solid #aed6f1; /* Subtle border for badge */
+        }
+
+        /* Accordion specific styling to match the theme */
+        .accordion-item {
+            border: 1px solid #e0e0e0; /* Lighter border for accordion items */
+            border-radius: 8px; /* Rounded corners */
+            margin-top: 10px;
+        }
+        .accordion-header .accordion-button {
+            background-color: #f8fcfd; /* Very light blue background for accordion button */
+            color: #34495e; /* Darker text */
+            font-weight: 500;
+            border-radius: 8px;
+            padding: 0.75rem 1.25rem; /* Adjust padding */
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: #eaf6fc; /* Slightly darker light blue when open */
+            color: #2c3e50;
+            box-shadow: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25); /* Blue focus ring */
+            border-color: transparent;
+        }
+        .accordion-body {
+            background-color: #ffffff; /* White background for accordion body */
+            color: #555;
+            padding: 1.25rem;
+            font-size: 0.95rem;
+        }
+        .accordion-body ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .accordion-body li {
+            margin-bottom: 5px;
+        }
+        .accordion-body .small.text-muted {
+            font-size: 0.8em !important;
+            color: #888 !important;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-section text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-3">Disease Outbreaks in India</h1>
+            <p class="lead">Stay informed about prevalent diseases across different seasons and learn essential preventative measures.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <ul class="nav nav-tabs justify-content-center season-tabs mb-4" id="seasonTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-content" type="button" role="tab" aria-controls="all-content" aria-selected="true">All Seasons</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="winter-tab" data-bs-toggle="tab" data-bs-target="#winter-content" type="button" role="tab" aria-controls="winter-content" aria-selected="false">Winter</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="spring-tab" data-bs-toggle="tab" data-bs-target="#spring-content" type="button" role="tab" aria-controls="spring-content" aria-selected="false">Spring</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="summer-tab" data-bs-toggle="tab" data-bs-target="#summer-content" type="button" role="tab" aria-controls="summer-content" aria-selected="false">Summer</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="monsoon-tab" data-bs-toggle="tab" data-bs-target="#monsoon-content" type="button" role="tab" aria-controls="monsoon-content" aria-selected="false">Monsoon</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="seasonTabsContent">
+            <div class="tab-pane fade show active" id="all-content" role="tabpanel" aria-labelledby="all-tab">
+                <h2 class="h4 mb-4 text-center text-muted">Common Outbreaks Year-Round</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card disease-card p-3">
+                            <h5 class="disease-title mb-2"><i class="fas fa-virus icon-small"></i> Influenza (Flu)</h5>
+                            <p class="text-muted small mb-2">Prevalent throughout the year, especially during seasonal changes.</p>
+                            <p><strong>Summary:</strong> A common respiratory illness caused by influenza viruses. Symptoms include fever, cough, sore throat, and body aches. Highly contagious.</p>
+                            <div class="mt-3">
+                                <span class="solution-badge me-2"><i class="fas fa-hand-sparkles"></i> Hand Hygiene</span>
+                                <span class="solution-badge"><i class="fas fa-shield-virus"></i> Vaccination</span>
+                            </div>
+                            <div class="accordion mt-3" id="accordionInfluenza">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingInfluenza">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfluenza" aria-expanded="false" aria-controls="collapseInfluenza">
+                                            More Solutions & Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseInfluenza" class="accordion-collapse collapse" aria-labelledby="headingInfluenza" data-bs-parent="#accordionInfluenza">
+                                        <div class="accordion-body">
+                                            <p><strong>Detailed Solutions:</strong></p>
+                                            <ul>
+                                                <li>Regular hand washing with soap and water or using alcohol-based hand rub.</li>
+                                                <li>Annual influenza vaccination, especially for vulnerable groups.</li>
+                                                <li>Avoiding close contact with sick people.</li>
+                                                <li>Covering coughs and sneezes with a tissue or elbow.</li>
+                                                <li>Staying home when sick to prevent spreading the virus.</li>
+                                                <li>Cleaning and disinfecting frequently touched surfaces.</li>
+                                            </ul>
+                                            <p class="small text-muted"><em>Consult a doctor if symptoms persist or worsen.</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card disease-card p-3">
+                            <h5 class="disease-title mb-2"><i class="fas fa-stomach icon-small"></i> Typhoid Fever</h5>
+                            <p class="text-muted small mb-2">Often year-round, peaking during warmer months and monsoon.</p>
+                            <p><strong>Summary:</strong> Bacterial infection caused by Salmonella Typhi, spread through contaminated food and water. Symptoms include sustained fever, weakness, stomach pain, headache, and loss of appetite.</p>
+                            <div class="mt-3">
+                                <span class="solution-badge me-2"><i class="fas fa-utensils"></i> Food Safety</span>
+                                <span class="solution-badge"><i class="fas fa-tint"></i> Clean Water</span>
+                            </div>
+                            <div class="accordion mt-3" id="accordionTyphoid">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTyphoid">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTyphoid" aria-expanded="false" aria-controls="collapseTyphoid">
+                                            More Solutions & Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTyphoid" class="accordion-collapse collapse" aria-labelledby="headingTyphoid" data-bs-parent="#accordionTyphoid">
+                                        <div class="accordion-body">
+                                            <p><strong>Detailed Solutions:</strong></p>
+                                            <ul>
+                                                <li>Drink only bottled, boiled, or chemically disinfected water.</li>
+                                                <li>Avoid raw fruits and vegetables unless you can peel them yourself.</li>
+                                                <li>Eat thoroughly cooked food that is served hot.</li>
+                                                <li>Practice good hand hygiene, especially before eating and after using the restroom.</li>
+                                                <li>Vaccination is available and recommended for travelers or those at high risk.</li>
+                                            </ul>
+                                            <p class="small text-muted"><em>Early diagnosis and antibiotic treatment are crucial.</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <div class="tab-pane fade" id="winter-content" role="tabpanel" aria-labelledby="winter-tab">
+                <h2 class="h4 mb-4 text-center text-muted">Winter Season Outbreaks</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card disease-card p-3">
+                            <h5 class="disease-title mb-2"><i class="fas fa-lungs icon-small"></i> Common Cold</h5>
+                            <p class="text-muted small mb-2">Highly prevalent during colder months.</p>
+                            <p><strong>Summary:</strong> A viral infection of the nose and throat, usually harmless. Symptoms include runny nose, sore throat, cough, congestion, and sneezing.</p>
+                            <div class="mt-3">
+                                <span class="solution-badge me-2"><i class="fas fa-rest"></i> Rest</span>
+                                <span class="solution-badge"><i class="fas fa-prescription-bottle-alt"></i> Symptom Relief</span>
+                            </div>
+                             <div class="accordion mt-3" id="accordionCold">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingCold">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCold" aria-expanded="false" aria-controls="collapseCold">
+                                            More Solutions & Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseCold" class="accordion-collapse collapse" aria-labelledby="headingCold" data-bs-parent="#accordionCold">
+                                        <div class="accordion-body">
+                                            <p><strong>Detailed Solutions:</strong></p>
+                                            <ul>
+                                                <li>Get plenty of rest.</li>
+                                                <li>Drink plenty of fluids (water, juice, clear broth).</li>
+                                                <li>Gargle with warm salt water for a sore throat.</li>
+                                                <li>Use saline nasal sprays or drops to relieve congestion.</li>
+                                                <li>Over-the-counter pain relievers can help with aches and fever.</li>
+                                            </ul>
+                                            <p class="small text-muted"><em>Antibiotics are not effective against viral colds.</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <div class="tab-pane fade" id="spring-content" role="tabpanel" aria-labelledby="spring-tab">
+                <h2 class="h4 mb-4 text-center text-muted">Spring Season Outbreaks</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card disease-card p-3">
+                            <h5 class="disease-title mb-2"><i class="fas fa-allergies icon-small"></i> Seasonal Allergies</h5>
+                            <p class="text-muted small mb-2">Common during spring due to pollen.</p>
+                            <p><strong>Summary:</strong> Allergic reactions to pollen from trees, grasses, and weeds. Symptoms include sneezing, runny nose, itchy eyes, and nasal congestion.</p>
+                            <div class="mt-3">
+                                <span class="solution-badge me-2"><i class="fas fa-mask"></i> Avoid Allergens</span>
+                                <span class="solution-badge"><i class="fas fa-pills"></i> Antihistamines</span>
+                            </div>
+                            <div class="accordion mt-3" id="accordionAllergies">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingAllergies">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllergies" aria-expanded="false" aria-controls="collapseAllergies">
+                                            More Solutions & Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseAllergies" class="accordion-collapse collapse" aria-labelledby="headingAllergies" data-bs-parent="#accordionAllergies">
+                                        <div class="accordion-body">
+                                            <p><strong>Detailed Solutions:</strong></p>
+                                            <ul>
+                                                <li>Monitor pollen counts and stay indoors when they are high.</li>
+                                                <li>Keep windows and doors closed.</li>
+                                                <li>Use air conditioning with a HEPA filter.</li>
+                                                <li>Change clothes and shower after being outdoors.</li>
+                                                <li>Over-the-counter antihistamines, nasal sprays, and eye drops can help manage symptoms.</li>
+                                                <li>For severe allergies, consult a doctor about immunotherapy.</li>
+                                            </ul>
+                                            <p class="small text-muted"><em>Distinguish from cold symptoms if fever is absent.</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <div class="tab-pane fade" id="summer-content" role="tabpanel" aria-labelledby="summer-tab">
+                <h2 class="h4 mb-4 text-center text-muted">Summer Season Outbreaks</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card disease-card p-3">
+                            <h5 class="disease-title mb-2"><i class="fas fa-sun icon-small"></i> Heatstroke / Heat Exhaustion</h5>
+                            <p class="text-muted small mb-2">Risk increases significantly during hot summer months.</p>
+                            <p><strong>Summary:</strong> Serious heat-related illnesses ranging from mild heat exhaustion to life-threatening heatstroke, caused by prolonged exposure to high temperatures.</p>
+                            <div class="mt-3">
+                                <span class="solution-badge me-2"><i class="fas fa-tint"></i> Hydration</span>
+                                <span class="solution-badge"><i class="fas fa-umbrella-beach"></i> Stay Cool</span>
+                            </div>
+                             <div class="accordion mt-3" id="accordionHeatstroke">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingHeatstroke">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHeatstroke" aria-expanded="false" aria-controls="collapseHeatstroke">
+                                            More Solutions & Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseHeatstroke" class="accordion-collapse collapse" aria-labelledby="headingHeatstroke" data-bs-parent="#accordionHeatstroke">
+                                        <div class="accordion-body">
+                                            <p><strong>Detailed Solutions:</strong></p>
+                                            <ul>
+                                                <li>Drink plenty of fluids (water, ORS) even if not thirsty.</li>
+                                                <li>Avoid direct sun exposure, especially between 10 AM and 4 PM.</li>
+                                                <li>Wear light, loose-fitting clothing.</li>
+                                                <li>Take cool showers or baths.</li>
+                                                <li>Limit strenuous outdoor activities during peak heat.</li>
+                                                <li>Recognize symptoms: heavy sweating, weakness, dizziness (heat exhaustion); hot, red skin, confusion, loss of consciousness (heatstroke - *medical emergency*).</li>
+                                            </ul>
+                                            <p class="small text-muted"><em>Heatstroke requires immediate medical attention.</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <div class="tab-pane fade" id="monsoon-content" role="tabpanel" aria-labelledby="monsoon-tab">
+                <h2 class="h4 mb-4 text-center text-muted">Monsoon Season Outbreaks</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card disease-card p-3">
+                            <h5 class="disease-title mb-2"><i class="fas fa-mosquito icon-small"></i> Dengue Fever</h5>
+                            <p class="text-muted small mb-2">Common during and after monsoon due to mosquito breeding.</p>
+                            <p><strong>Summary:</strong> Viral infection transmitted by Aedes mosquitoes. Symptoms include high fever, severe headache, joint and muscle pain, and rash. Can be severe.</p>
+                            <div class="mt-3">
+                                <span class="solution-badge me-2"><i class="fas fa-bug"></i> Mosquito Control</span>
+                                <span class="solution-badge"><i class="fas fa-house-damage"></i> Prevent Stagnant Water</span>
+                            </div>
+                             <div class="accordion mt-3" id="accordionDengue">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingDengue">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDengue" aria-expanded="false" aria-controls="collapseDengue">
+                                            More Solutions & Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseDengue" class="accordion-collapse collapse" aria-labelledby="headingDengue" data-bs-parent="#accordionDengue">
+                                        <div class="accordion-body">
+                                            <p><strong>Detailed Solutions:</strong></p>
+                                            <ul>
+                                                <li>Prevent mosquito breeding by eliminating stagnant water sources (pots, tires, coolers) around your home.</li>
+                                                <li>Use mosquito nets, especially while sleeping.</li>
+                                                <li>Apply insect repellent on exposed skin.</li>
+                                                <li>Wear long-sleeved shirts and long pants.</li>
+                                                <li>Keep windows and doors screened.</li>
+                                                <li>Consult a doctor immediately if you suspect dengue.</li>
+                                            </ul>
+                                            <p class="small text-muted"><em>There is no specific treatment for dengue; management is symptomatic.</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card disease-card p-3">
+                            <h5 class="disease-title mb-2"><i class="fas fa-water icon-small"></i> Cholera</h5>
+                            <p class="text-muted small mb-2">Risk increases during monsoon due to water contamination.</p>
+                            <p><strong>Summary:</strong> Acute diarrheal infection caused by ingestion of food or water contaminated with the bacterium Vibrio cholerae. Leads to severe dehydration.</p>
+                            <div class="mt-3">
+                                <span class="solution-badge me-2"><i class="fas fa-tint"></i> Safe Water</span>
+                                <span class="solution-badge"><i class="fas fa-toilet"></i> Sanitation</span>
+                            </div>
+                            <div class="accordion mt-3" id="accordionCholera">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingCholera">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCholera" aria-expanded="false" aria-controls="collapseCholera">
+                                            More Solutions & Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseCholera" class="accordion-collapse collapse" aria-labelledby="headingCholera" data-bs-parent="#accordionCholera">
+                                        <div class="accordion-body">
+                                            <p><strong>Detailed Solutions:</strong></p>
+                                            <ul>
+                                                <li>Drink and use only safe water (boiled, treated).</li>
+                                                <li>Wash hands with soap and safe water, especially after defecation and before handling food.</li>
+                                                <li>Cook food thoroughly, keep it covered, and eat it hot.</li>
+                                                <li>Clean latrines and dispose of feces safely.</li>
+                                                <li>Oral rehydration salts (ORS) are vital for rehydration. Severe cases may require intravenous fluids.</li>
+                                                <li>Vaccines are available but primarily as a short-term measure for high-risk individuals.</li>
+                                            </ul>
+                                            <p class="small text-muted"><em>Rapid rehydration is key to preventing severe illness and death.</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
