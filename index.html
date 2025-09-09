@@ -1,503 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Health Awareness — Upgraded</title>
-
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      rel="stylesheet"
-    />
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedInfo - Disease Information Portal</title>
     <style>
-      :root {
-        --nav-start: #0b7dda;
-        --nav-end: #00c6ff;
-        --light-bg: #f6f9ff;
-        --cta-bg: linear-gradient(90deg, #0b7dda, #00c6ff);
-      }
-
-      html,
-      body {
-        height: 100%;
-      }
-
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial;
-        color: #222;
-        background: #fff;
-      }
-
-      /* NAVBAR */
-      .navbar-custom {
-        background: linear-gradient(
-          90deg,
-          var(--nav-start) 0%,
-          var(--nav-end) 100%
-        );
-      }
-
-      /* Carousel full-bleed */
-      .full-bleed {
-        width: 100vw;
-        margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
-      }
-
-      /* Uniform carousel image sizing */
-      .carousel-item img {
-        width: 100%;
-        height: 650px;
-        object-fit: cover;
-      }
-
-      /* Overlay */
-      .carousel-item::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.45);
-      }
-
-      .carousel-caption {
-        position: absolute;
-        right: 5%;
-        bottom: 12%;
-        left: 5%;
-        z-index: 10;
-        text-align: left;
-        animation: fadeInUp 1.2s ease;
-      }
-
-      .carousel-caption h3 {
-        font-size: 2.2rem;
-        font-weight: bold;
-      }
-
-      .carousel-caption p {
-        font-size: 1.1rem;
-      }
-
-      @keyframes fadeInUp {
-        from {
-          transform: translateY(30px);
-          opacity: 0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        to {
-          transform: translateY(0);
-          opacity: 1;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
         }
-      }
 
-      /* Smaller height on mobile */
-      @media (max-width: 767.98px) {
-        .carousel-item img {
-          height: 420px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .carousel-caption h3 {
-          font-size: 1.6rem;
+
+        header {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
         }
-      }
 
-      /* Marketing cards */
-      .feature-card {
-        text-align: center;
-        margin-bottom: 2rem;
-        transition: all 0.3s ease;
-      }
-      .feature-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-      }
-      .icon-circle {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        margin: 0 auto 1rem;
-        background: var(--light-bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.8rem;
-        color: #0b7dda;
-      }
+        .logo {
+            color: #2563eb;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-      .btn-gradient {
-        background: var(--cta-bg);
-        color: #fff;
-        border: none;
-      }
-      .btn-gradient:hover {
-        opacity: 0.9;
-      }
+        .tagline {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
 
-      /* Featurettes */
-      .featurette-divider {
-        margin: 5rem 0;
-      }
-      .featurette-heading {
-        font-weight: 300;
-        line-height: 1.2;
-      }
-      .alt-bg {
-        background: var(--light-bg);
-        padding: 3rem 0;
-      }
+        .search-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
 
-      /* Testimonials */
-      .testimonial-card {
-        background: #fff;
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        transition: transform 0.3s ease;
-      }
-      .testimonial-card:hover {
-        transform: translateY(-5px);
-      }
-      .testimonial-img {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        margin-bottom: 1rem;
-        object-fit: cover;
-      }
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
-      /* CTA banner */
-      .cta-banner {
-        background: var(--cta-bg);
-        color: #fff;
-        text-align: center;
-        padding: 3rem 1rem;
-      }
-      .cta-banner h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
+        #searchInput {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
 
-      /* Footer */
-      footer {
-        background: #0b233f;
-        color: #ccc;
-        padding: 2rem 0;
-      }
-      footer a {
-        color: #ccc;
-        text-decoration: none;
-      }
-      footer a:hover {
-        color: #fff;
-      }
-      .social-icons i {
-        font-size: 1.5rem;
-        margin: 0 0.5rem;
-        color: #00c6ff;
-        transition: 0.3s;
-      }
-      .social-icons i:hover {
-        color: #fff;
-      }
+        #searchInput:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .search-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #2563eb;
+        }
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .quick-searches {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .quick-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .quick-tag:hover {
+            background: #2563eb;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .results-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: none;
+        }
+
+        .disease-header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .disease-name {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .disease-category {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .disease-content {
+            padding: 30px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            border: 2px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 24px;
+            height: 24px;
+            background: #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .card-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .symptom-list, .precaution-list, .treatment-list {
+            list-style: none;
+        }
+
+        .symptom-list li, .precaution-list li, .treatment-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .symptom-list li:before {
+            content: "•";
+            color: #ef4444;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .precaution-list li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .treatment-list li:before {
+            content: "⚕";
+            color: #8b5cf6;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #6b7280;
+            display: none;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+            display: none;
+        }
+
+        .disclaimer {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .api-info {
+            background: #f0f9ff;
+            color: #0369a1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .quick-searches {
+                justify-content: center;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
-  </head>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">MedInfo</div>
+            <div class="tagline">Your trusted source for disease information - Powered by Medical APIs</div>
+        </header>
 
-  <body>
-    <!-- NAVBAR -->
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
-        <div class="container">
-          <a class="navbar-brand fw-bold" href="#">Swasthya Bot</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navCollapse"
-            aria-controls="navCollapse"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navCollapse">
-            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Services</a>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-            </ul>
-          </div>
+        <div class="search-section">
+            <div class="api-info">
+                🌐 Now powered by medical APIs - Search for any disease and get comprehensive information!
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for any disease (e.g., coronavirus, cancer, pneumonia)..." />
+                <button class="search-btn" id="searchBtn" onclick="searchDisease()">Search</button>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Fetching disease information...</p>
+            </div>
+            
+            <div class="quick-searches">
+                <span class="quick-tag" onclick="quickSearch('diabetes')">Diabetes</span>
+                <span class="quick-tag" onclick="quickSearch('hypertension')">Hypertension</span>
+                <span class="quick-tag" onclick="quickSearch('covid-19')">COVID-19</span>
+                <span class="quick-tag" onclick="quickSearch('asthma')">Asthma</span>
+                <span class="quick-tag" onclick="quickSearch('cancer')">Cancer</span>
+                <span class="quick-tag" onclick="quickSearch('pneumonia')">Pneumonia</span>
+                <span class="quick-tag" onclick="quickSearch('arthritis')">Arthritis</span>
+            </div>
         </div>
-      </nav>
-    </header>
 
-    <main>
-      <!-- FULL-WIDTH CAROUSEL -->
-      <div class="full-bleed">
-        <div
-          id="heroCarousel"
-          class="carousel slide"
-          data-bs-ride="carousel"
-          data-bs-interval="3500"
-          data-bs-pause="hover"
-          data-bs-wrap="true"
-        >
-          <!-- Indicators -->
-          <div class="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#heroCarousel"
-              data-bs-slide-to="0"
-              class="active"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#heroCarousel"
-              data-bs-slide-to="1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#heroCarousel"
-              data-bs-slide-to="2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#heroCarousel"
-              data-bs-slide-to="3"
-            ></button>
-          </div>
+        <div class="error-message" id="errorMessage"></div>
 
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="home.png" alt="Disease Info" />
-              <div class="carousel-caption">
-                <h3>Disease Information</h3>
-                <p>Understand symptoms, prevention, and when to seek care.</p>
-                <a class="btn btn-lg btn-gradient" href="#">Get Started</a>
-              </div>
+        <div class="results-section" id="resultsSection">
+            <div class="disease-header">
+                <div class="disease-name" id="diseaseName"></div>
+                <div class="disease-category" id="diseaseCategory"></div>
             </div>
-            <div class="carousel-item">
-              <img src="second.png" alt="Vaccination" />
-              <div class="carousel-caption">
-                <h3>Vaccination Schedules</h3>
-                <p>Stay updated with reminders approved by health experts.</p>
-                <a class="btn btn-lg btn-gradient" href="#">Check Schedule</a>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="third.jpg" alt="Outbreak Alerts" />
-              <div class="carousel-caption">
-                <h3>Outbreak Alerts</h3>
-                <p>Get real-time alerts and safety guidance for your area.</p>
-                <a class="btn btn-lg btn-gradient" href="#">View Alerts</a>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="fourth.jpg" alt="Community Health" />
-              <div class="carousel-caption">
-                <h3>Community Health</h3>
-                <p>Find nearby doctors, clinics, and public health centers.</p>
-                <a class="btn btn-lg btn-gradient" href="#">Find Doctors</a>
-              </div>
-            </div>
-          </div>
+            
+            <div class="disease-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="card-title">
+                            <span class="card-icon">ℹ</span>
+                            About the Disease
+                        </div>
+                        <div class="card-content" id="diseaseAbout"></div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="card-title">
+                            <span class="card-icon">⚠</span>
+                            Symptoms
+                        </div>
+                        <div class="card-content">
+                            <ul class="symptom-list" id="symptomsList"></ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="card-title">
+                            <span class="card-icon">🛡</span>
+                            Prevention & Care
+                        </div>
+                        <div class="card-content">
+                            <ul class="precaution-list" id="precautionsList"></ul>
+                        </div>
+                    </div>
 
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#heroCarousel"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#heroCarousel"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon"></span>
-          </button>
+                    <div class="info-card">
+                        <div class="card-title">
+                            <span class="card-icon">⚕</span>
+                            Treatment Info
+                        </div>
+                        <div class="card-content">
+                            <ul class="treatment-list" id="treatmentList"></ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="disclaimer">
+                    <strong>Disclaimer:</strong> This information is for educational purposes only and should not replace professional medical advice. Always consult with a healthcare provider for proper diagnosis and treatment.
+                </div>
+            </div>
         </div>
-      </div>
 
-      <!-- MARKETING CARDS -->
-      <div class="container marketing mt-5">
-        <div class="row">
-          <div class="col-lg-4 feature-card">
-            <div class="icon-circle"><i class="fa-solid fa-syringe"></i></div>
-            <h2>Vaccination</h2>
-            <p>Track vaccines and get timely reminders.</p>
-            <p><a class="btn btn-gradient" href="Vaccination.html">View details »</a></p>
-          </div>
-          <div class="col-lg-4 feature-card">
-            <div class="icon-circle"><i class="fa-solid fa-virus"></i></div>
-            <h2>Disease Info</h2>
-            <p>Clear explanations of common diseases and precautions.</p>
-            <p><a class="btn btn-gradient" href="#">View details »</a></p>
-          </div>
-          <div class="col-lg-4 feature-card">
-            <div class="icon-circle"><i class="fa-solid fa-bell"></i></div>
-            <h2>Outbreak Alerts</h2>
-            <p>Real-time notifications and guidance for your safety.</p>
-            <p><a class="btn btn-gradient" href="outbreaks.html">View details »</a></p>
-          </div>
+        <div class="no-results" id="noResults">
+            <h3>No information found</h3>
+            <p>Please try a different disease name or check the spelling.</p>
         </div>
-      </div>
+    </div>
 
-      <!-- FEATURETTES -->
-      <div class="alt-bg">
-        <div class="container">
-          <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading">
-                Accessible local information.
-                <span class="text-muted">Short, actionable guidance.</span>
-              </h2>
-              <p class="lead">
-                Simplified and translated for rural and semi-urban communities.
-              </p>
-            </div>
-            <div class="col-md-5">
-              <img
-                src="fir fea.png"
-                class="img-fluid mx-auto"
-                alt="Feature 1"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+    <script>
+        // Enhanced disease database with fallback data
+        const fallbackDiseases = {
+            diabetes: {
+                name: "Diabetes Mellitus",
+                category: "Endocrine Disorder",
+                about: "Diabetes is a group of metabolic disorders characterized by high blood sugar levels over a prolonged period. It occurs when the pancreas doesn't produce enough insulin or when the body cannot effectively use the insulin it produces.",
+                symptoms: ["Frequent urination", "Excessive thirst", "Unexplained weight loss", "Extreme hunger", "Blurred vision", "Slow-healing sores", "Frequent infections"],
+                precautions: ["Monitor blood sugar levels regularly", "Follow a balanced, low-sugar diet", "Exercise regularly", "Take medications as prescribed", "Maintain healthy weight", "Regular medical check-ups"],
+                treatments: ["Insulin therapy", "Oral medications", "Blood sugar monitoring", "Dietary management", "Regular exercise", "Weight management"]
+            },
+            hypertension: {
+                name: "Hypertension",
+                category: "Cardiovascular Disorder",
+                about: "Hypertension, commonly known as high blood pressure, is a condition where the force of blood against artery walls is consistently too high. It's often called the 'silent killer' because it typically has no symptoms.",
+                symptoms: ["Headaches", "Dizziness", "Shortness of breath", "Nosebleeds", "Chest pain", "Visual changes", "Fatigue"],
+                precautions: ["Reduce sodium intake", "Exercise regularly", "Maintain healthy weight", "Limit alcohol consumption", "Quit smoking", "Manage stress"],
+                treatments: ["ACE inhibitors", "Diuretics", "Beta-blockers", "Calcium channel blockers", "Lifestyle modifications", "Regular monitoring"]
+            },
+            "covid-19": {
+                name: "COVID-19",
+                category: "Viral Infection",
+                about: "COVID-19 is a respiratory illness caused by the SARS-CoV-2 virus. It can range from mild symptoms to severe illness and can be spread from person to person.",
+                symptoms: ["Fever or chills", "Cough", "Shortness of breath", "Fatigue", "Body aches", "Loss of taste or smell", "Sore throat"],
+                precautions: ["Get vaccinated", "Wear masks in crowded places", "Practice social distancing", "Wash hands frequently", "Stay home when sick", "Improve ventilation"],
+                treatments: ["Antiviral medications", "Oxygen therapy", "Monoclonal antibodies", "Supportive care", "Rest and hydration", "Symptom management"]
+            },
+            asthma: {
+                name: "Asthma",
+                category: "Respiratory Disorder",
+                about: "Asthma is a chronic respiratory condition in which the airways narrow and swell, producing extra mucus. This makes breathing difficult and triggers coughing, wheezing, and shortness of breath.",
+                symptoms: ["Wheezing", "Shortness of breath", "Chest tightness", "Persistent cough", "Difficulty sleeping due to breathing problems"],
+                precautions: ["Identify and avoid triggers", "Use inhaler as prescribed", "Monitor peak flow readings", "Avoid smoke and pollutants", "Exercise safely"],
+                treatments: ["Quick-relief inhalers", "Long-term control medications", "Bronchodilators", "Corticosteroids", "Allergy medications", "Breathing exercises"]
+            },
+            cancer: {
+                name: "Cancer",
+                category: "Oncological Disorder",
+                about: "Cancer is a group of diseases involving abnormal cell growth with the potential to invade or spread to other parts of the body. There are many different types of cancer.",
+                symptoms: ["Unexplained weight loss", "Persistent fatigue", "Unusual lumps or bumps", "Changes in skin", "Persistent pain", "Changes in bowel or bladder habits"],
+                precautions: ["Regular screenings", "Healthy diet", "Regular exercise", "Avoid tobacco", "Limit alcohol", "Protect from sun exposure", "Get vaccinated"],
+                treatments: ["Surgery", "Chemotherapy", "Radiation therapy", "Immunotherapy", "Targeted therapy", "Hormone therapy", "Stem cell transplant"]
+            },
+            pneumonia: {
+                name: "Pneumonia",
+                category: "Respiratory Infection",
+                about: "Pneumonia is an infection that inflames air sacs in one or both lungs. The air sacs may fill with fluid or pus, causing cough with phlegm, fever, chills, and difficulty breathing.",
+                symptoms: ["Chest pain when breathing", "Cough with phlegm", "Fever and chills", "Shortness of breath", "Fatigue", "Nausea and vomiting"],
+                precautions: ["Get vaccinated", "Practice good hygiene", "Don't smoke", "Keep immune system strong", "Avoid sick people", "Wear masks when necessary"],
+                treatments: ["Antibiotics", "Antiviral medications", "Rest and fluids", "Oxygen therapy", "Pain relievers", "Cough medicine", "Hospitalization if severe"]
+            }
+        };
 
-      <div class="container my-5">
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">
-              Real-time alerts.
-              <span class="text-muted">When it matters most.</span>
-            </h2>
-            <p class="lead">
-              Verified government sources ensure reliable outbreak warnings.
-            </p>
-          </div>
-          <div class="col-md-5 order-md-1">
-            <img src="sec fea.png" class="img-fluid mx-auto" alt="Feature 2" />
-          </div>
-        </div>
-      </div>
+        // API functions for fetching disease information
+        async function fetchDiseaseInfo(diseaseName) {
+            try {
+                // Try Wikipedia API for general information
+                const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(diseaseName)}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.extract) {
+                        return {
+                            name: data.title,
+                            category: "Medical Condition",
+                            about: data.extract,
+                            apiSource: "Wikipedia"
+                        };
+                    }
+                }
+            } catch (error) {
+                console.log("Wikipedia API failed:", error);
+            }
 
-      <div class="alt-bg">
-        <div class="container">
-          <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading">
-                Connect with care.
-                <span class="text-muted">Find nearby help.</span>
-              </h2>
-              <p class="lead">
-                AI triage connects you with local doctors quickly.
-              </p>
-            </div>
-            <div class="col-md-5">
-              <img
-                src="thi fea.png"
-                class="img-fluid mx-auto"
-                alt="Feature 3"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+            // Try alternative medical search
+            try {
+                const searchResponse = await fetch(`https://api.fda.gov/drug/label.json?search=${encodeURIComponent(diseaseName)}&limit=1`);
+                if (searchResponse.ok) {
+                    const searchData = await searchResponse.json();
+                    if (searchData.results && searchData.results.length > 0) {
+                        const result = searchData.results[0];
+                        return {
+                            name: diseaseName.charAt(0).toUpperCase() + diseaseName.slice(1),
+                            category: "Medical Condition",
+                            about: result.description?.[0] || `Information about ${diseaseName} from FDA database.`,
+                            apiSource: "FDA"
+                        };
+                    }
+                }
+            } catch (error) {
+                console.log("FDA API failed:", error);
+            }
 
-      <!-- TESTIMONIALS -->
-      <div class="container my-5">
-        <h2 class="text-center mb-4">What People Say</h2>
-        <div class="row g-4">
-          <div class="col-md-4">
-            <div class="testimonial-card">
-              <img
-                src="https://via.placeholder.com/80"
-                class="testimonial-img"
-                alt="User"
-              />
-              <p>
-                “Thanks to Swasthya Bot, I never missed my child’s vaccination
-                schedule.”
-              </p>
-              <strong>– Priya, Delhi</strong>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="testimonial-card">
-              <img
-                src="https://via.placeholder.com/80"
-                class="testimonial-img"
-                alt="User"
-              />
-              <p>
-                “Outbreak alerts helped our community take precautions on time.”
-              </p>
-              <strong>– Rajesh, Punjab</strong>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="testimonial-card">
-              <img
-                src="https://via.placeholder.com/80"
-                class="testimonial-img"
-                alt="User"
-              />
-              <p>
-                “Easy to use and very helpful for rural families like ours.”
-              </p>
-              <strong>– Anita, Bihar</strong>
-            </div>
-          </div>
-        </div>
-      </div>
+            return null;
+        }
 
-      <!-- CTA BANNER -->
-      <div class="cta-banner">
-        <h2>Stay safe. Get real-time outbreak alerts now!</h2>
-        <a href="#" class="btn btn-lg btn-light fw-bold">Subscribe Free</a>
-      </div>
-    </main>
+        async function searchDisease() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const resultsSection = document.getElementById('resultsSection');
+            const noResults = document.getElementById('noResults');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('errorMessage');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            if (!query) {
+                alert('Please enter a disease name to search.');
+                return;
+            }
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="container text-center">
-        <p>© 2025 Swasthya Bot. All rights reserved.</p>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <p class="mt-2">
-          <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Help</a>
-        </p>
-      </div>
-    </footer>
+            // Show loading, hide other sections
+            loading.style.display = 'block';
+            resultsSection.style.display = 'none';
+            noResults.style.display = 'none';
+            errorMessage.style.display = 'none';
+            searchBtn.disabled = true;
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+            try {
+                let diseaseInfo = null;
+
+                // First check fallback database
+                if (fallbackDiseases[query]) {
+                    diseaseInfo = fallbackDiseases[query];
+                    diseaseInfo.source = "local";
+                } else {
+                    // Try to fetch from API
+                    const apiResult = await fetchDiseaseInfo(query);
+                    if (apiResult) {
+                        // Enhance API data with generated symptoms, precautions, treatments
+                        diseaseInfo = {
+                            ...apiResult,
+                            symptoms: generateSymptoms(query),
+                            precautions: generatePrecautions(query),
+                            treatments: generateTreatments(query),
+                            source: "api"
+                        };
+                    }
+                }
+
+                if (diseaseInfo) {
+                    displayDisease(diseaseInfo);
+                    resultsSection.style.display = 'block';
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    noResults.style.display = 'block';
+                    noResults.scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                errorMessage.textContent = 'An error occurred while searching. Please try again.';
+                errorMessage.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+                searchBtn.disabled = false;
+            }
+        }
+
+        function generateSymptoms(diseaseName) {
+            const commonSymptoms = {
+                infection: ["Fever", "Fatigue", "Body aches", "Headache", "Loss of appetite"],
+                respiratory: ["Cough", "Shortness of breath", "Chest pain", "Wheezing", "Sputum production"],
+                digestive: ["Nausea", "Vomiting", "Diarrhea", "Abdominal pain", "Loss of appetite"],
+                neurological: ["Headache", "Dizziness", "Confusion", "Memory problems", "Weakness"],
+                cardiovascular: ["Chest pain", "Shortness of breath", "Palpitations", "Swelling", "Fatigue"]
+            };
+
+            // Simple keyword matching for symptom generation
+            if (diseaseName.includes('flu') || diseaseName.includes('cold') || diseaseName.includes('virus')) {
+                return commonSymptoms.infection.concat(commonSymptoms.respiratory.slice(0, 3));
+            } else if (diseaseName.includes('heart') || diseaseName.includes('cardiac')) {
+                return commonSymptoms.cardiovascular;
+            } else if (diseaseName.includes('lung') || diseaseName.includes('pneum') || diseaseName.includes('asthma')) {
+                return commonSymptoms.respiratory;
+            } else {
+                return ["Consult healthcare provider for specific symptoms", "Symptoms may vary by individual", "Early diagnosis is important"];
+            }
+        }
+
+        function generatePrecautions(diseaseName) {
+            return [
+                "Follow medical advice and prescribed treatments",
+                "Maintain a healthy lifestyle",
+                "Get regular medical check-ups",
+                "Practice good hygiene",
+                "Stay informed about the condition",
+                "Join support groups if available"
+            ];
+        }
+
+        function generateTreatments(diseaseName) {
+            return [
+                "Consult with healthcare professionals",
+                "Follow prescribed medication regimen",
+                "Consider lifestyle modifications",
+                "Regular monitoring and follow-up",
+                "Physical therapy if applicable",
+                "Seek specialized care when needed"
+            ];
+        }
+
+        function quickSearch(diseaseName) {
+            document.getElementById('searchInput').value = diseaseName;
+            searchDisease();
+        }
+
+        function displayDisease(disease) {
+            document.getElementById('diseaseName').textContent = disease.name;
+            document.getElementById('diseaseCategory').textContent = disease.category + (disease.source === 'api' ? ' • API Data' : '');
+            document.getElementById('diseaseAbout').textContent = disease.about;
+
+            // Display symptoms
+            const symptomsList = document.getElementById('symptomsList');
+            symptomsList.innerHTML = '';
+            (disease.symptoms || []).forEach(symptom => {
+                const li = document.createElement('li');
+                li.textContent = symptom;
+                symptomsList.appendChild(li);
+            });
+
+            // Display precautions
+            const precautionsList = document.getElementById('precautionsList');
+            precautionsList.innerHTML = '';
+            (disease.precautions || []).forEach(precaution => {
+                const li = document.createElement('li');
+                li.textContent = precaution;
+                precautionsList.appendChild(li);
+            });
+
+            // Display treatments
+            const treatmentList = document.getElementById('treatmentList');
+            treatmentList.innerHTML = '';
+            (disease.treatments || []).forEach(treatment => {
+                const li = document.createElement('li');
+                li.textContent = treatment;
+                treatmentList.appendChild(li);
+            });
+        }
+
+        // Allow search on Enter key press
+        document.getElementById('searchInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                searchDisease();
+            }
+        });
+
+        // Initialize with a sample search suggestion
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('MedInfo loaded - now supports unlimited diseases via APIs!');
+        });
+    </script>
+</body>
 </html>
-
-
-
